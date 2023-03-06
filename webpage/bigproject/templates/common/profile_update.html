@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Profile</h1>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">내 정보</h6>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <table style="color:black; margin-left:10px;">
+                            <tr>
+                                <td class="profile_title">아이디</td>
+                                {% if user.level == '0'%}
+                                    <td class="profile_content">&nbsp;&nbsp;{{ user.username }}&nbsp;&nbsp;(개발자)</td>
+                                {% elif user.level == '1' %}
+                                    <td class="profile_content">&nbsp;&nbsp;{{ user.username }}&nbsp;&nbsp;(관리자)</td>
+                                {% else %}
+                                    <td class="profile_content">&nbsp;&nbsp;{{ user.username }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <td class="profile_title">이메일</td>
+                                <td class="profile_content">&nbsp;&nbsp;{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <td class="profile_title">이름</td>
+                                <td class="profile_content">{{ user_change_form.name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="profile_title">연락처</td>
+                                <td class="profile_content">{{ user_change_form.phone }}</td>
+                            </tr>
+                            <tr>
+                                <td class="profile_title">주소</td>
+                                <td class="profile_content">{{ user_change_form.address }}</td>
+                            </tr>
+                            <tr>
+                                <td class="profile_title">회사명</td>
+                                <td class="profile_content">{{ user_change_form.company_id }}</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div style="text-align: center; margin-bottom:-15px;">
+                            <a onclick="location.href='/common/profile/'" class="btn btn-sm" id="back_btn">
+                                <i class="fa fa-reply"></i>&nbsp;돌아가기</a>
+                            <button type="submit" class="btn btn-sm" id="detail_btn">
+                                <i class="fas fa-check"></i>&nbsp;수정하기</button>
+                        </div>
+                    </form>
+
+                    <script type="text/javascript">
+                        function maxLengthCheck(object) {
+                            if (object.value.length > object.maxLength) {
+                                object.value = object
+                                    .value
+                                    .slice(0, object.maxLength);
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

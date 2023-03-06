@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Consolas, sans-serif;
+    line-height: 1.25;
+    font-weight: normal;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+    color: #111;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    font-size: 1.2rem;
+}
+
+div {
+    display: block;
+}
+
+.header {
+    width: 100%;
+    height: 80px;
+    padding: 3rem 6.4rem;
+    display: flex;
+    border-bottom: 1px solid #e9ebf2;
+    background-color: #fff;
+}
+
+header > div {
+    display: flex;
+}
+header h1 {
+    margin-right: 16px;
+}
+h1 {
+    display: block;
+}
+header h1 a {
+    width: 8rem;
+    height: 1.8rem;
+}
+
+.contents {
+    padding: 1rem 3.4rem 3.4rem;
+    min-height: calc(100% - 8rem);
+    flex: 1;
+}
+
+.page_title:first-child {
+    padding-top: 0.78rem;
+    padding-bottom: 3.6rem;
+}
+
+.terms * {
+    color: #666;
+}
+
+.page_title {
+    display: flex;
+    width: 100%;
+}
+.page_title:first-child {
+    padding-top: 0.78rem;
+    padding-bottom: 3.6rem;
+}
+.page_title h2 {
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: #000;
+}
+
+.card_wrap .card:first-child {
+    margin-top: 0;
+}
+
+.terms .card .hd {
+    display: block;
+}
+.card .hd {
+    width: 100%;
+    padding-bottom: 2.4rem;
+    box-sizing: content-box;
+    border-bottom: 1px solid #e9ebf2;
+    display: flex;
+}
+.terms .card .hd h3 {
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: #111111;
+}
+h3 {
+    display: block;
+    font-size: 0.97em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.terms .card .hd p {
+    margin-top: 0.8rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #666666;
+    margin-left: 0;
+    padding-left: 0;
+}
+.card .hd p {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 2rem;
+    color: #666666;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.card > .con {
+    padding-top: 3.9rem;
+    height: calc(100% - 4.5rem);
+}
+
+ol {
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    list-style: none;
+}
+
+.terms ol li:first-child {
+    margin-top: 0;
+}
+.terms ol li {
+    margin-top: 2.8rem;
+}
+
+h4 {
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.terms .tit {
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: #111111;
+    margin-bottom: 0.8rem;
+}
+
+ol ol {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+h5 {
+    display: block;
+    font-size: 0.63em;
+    margin-block-start: 1.67em;
+    margin-block-end: 1.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.terms ol li li .tit {
+    font-weight: normal;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}

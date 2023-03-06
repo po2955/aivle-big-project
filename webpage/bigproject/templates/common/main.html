@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <div class="bg-dark py-5 main-bg-image">
+        <div class="container px-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center my-5">
+                        <img src="{% static 'common/img/logo3.png' %}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section  id="features">
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-4 col-md-6 ">
+                    <div class="mt-5">
+                        <div class="mb-2 text-center"><i class="fas fa-hand-holding-medical text-success" style="font-size: 50px;"></i></div>
+                        <h3 class="mx-3 border-bottom-success text-success text-center">PURPOSE</h3>
+                        <ul>
+                            <li> 근로 중 교통사고 예방 </li>
+                            <li> 근로자 컨디션 모니터링 </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 ">
+                    <div class="mt-5">
+                        <div class="mb-2 text-center"><i class="fas fa-network-wired text-success" style="font-size: 50px;"></i></div>
+                        <h3 class="mx-3 border-bottom-success text-success text-center">AI Service</h3>
+                        <ul>
+                            <li> 근로 중 가까이 접근하는 차량 탐지, 알림 </li>
+                            <li> 음성을 이용한 근로자 컨디션 측정 </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 ">
+                    <div class="mt-5">
+                        <div class="mb-2 text-center"><i class="fas fa-desktop text-success" style="font-size: 50px;"></i></div>
+                        <h3 class="mx-3 border-bottom-success text-success text-center">WEB SERVICE</h3>
+                        <ul>
+                            <li> 구 별 공지 게시판 </li>
+                            <li> 구 별 사고, 알람, 근로자 컨디션 확인 </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

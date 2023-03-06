@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">공지 등록</h5>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <div class="mb-3">
+            <label for="subject" class="form-label">제목</label>
+            <input type="text" class="form-control" name="subject" id="subject"
+                   value="{{ form.subject.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea class="form-control" name="content"
+                      id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">파일</label>
+            {{ form.file|default_if_none:'' }}
+        </div>
+
+        <button type="submit" class="btn btn-success">저장하기</button>
+    </form>
+</div>
+{% endblock %}

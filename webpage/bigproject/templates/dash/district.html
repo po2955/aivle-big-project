@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Begin Page Content -->
+{% if 'g' in user.company_id.company_id %}
+{% if user.address == '성남시' or user.address == dist_id %}
+<div class="container-fluid">
+    
+    <!-- Page Heading -->
+    <div class="card bg-success text-white shadow h-200 py-2 align-items-center">
+        <h1 class="h4 mb-0 text-white ">  {{ dist_id }} - Dashboard</h1>
+    </div>
+    <br>
+
+    <!-- alarms Row -->
+    <div class="row">
+        <div class='col-md-9' id='map' style="height:400px">
+            <!-- map -->
+            {{map|safe}}
+        </div>
+
+        <div class='col-md-3'>
+            <!-- Alarms (Daily) Card  -->
+            <div class="col-xl">
+                <div class="card bg-warning text-white shadow h-200">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div>  알람 </div>
+                                <div>  {{alarm_list|length}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <a href="{% url 'dash:alarm_table' dist_id %}" class="btn btn-danger btn-circle">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accidents (Weekly) Card -->
+            <div class="col-xl">
+                <div class="card bg-danger text-white shadow h-200">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div>  사고 </div>
+                                <div>  {{ acc_list|length }} </div>
+                            </div>
+                            <div class="col-auto">
+                                <a href="{% url 'dash:accident_table' dist_id %}" class="btn btn-warning btn-circle">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notice Card -->
+            <div class='col-xl'>
+                <div class="card shadow mb-4">
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-success">공지-최근 댓글</h6>
+                        <a href="{% url 'board:index' %}" class="btn btn-success btn-circle">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {% for reply in reply_list %}
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <span class="text-xs font-weight-bold text-success mb-1"> {{ reply.notice_id }}</span><br>
+                                <span class="mb-0 mr-3 text-gray-700">{{ reply.content }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- line Chart -->
+    <div class='row'>
+        <div class="card shadow col-xl">
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-success" id = 'overview-title'> 지난 12시간 overview </h6>
+                
+                <div>
+                    <a class="btn btn-success" id='overview-month'>
+                        <span class="text">지난 15일 </span>
+                    </a>
+                    <span></span>
+                    <a class="btn btn-success " id='overview-time'>
+                        <span class="text">지난 12시간 </span>
+                    </a>
+                </div>
+
+            </div>
+            <div class="card-body" id = "one-month" style="display:none">
+                <script>
+                    var d_labels = {{d_labels|safe}};
+                    var day_chart = {{day_chart}};
+                </script>
+
+                <div class="chart-area">
+                    <canvas id="myAreaChart" ></canvas>
+                </div>
+            </div>
+
+            <div class="card-body" id = "twelve">
+                <script>
+                    var h_labels = {{h_labels|safe}};
+                    var chart_alarm = {{chart_alarm}};
+                </script>
+
+                <div class="chart-area">
+                    <canvas id="myBarChart" ></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- Pie Chart -->
+    <div class="row">
+        <div class='col-md-3'>
+            <div class="card shadow mb-4">
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-success">위탁업체 현황</h6>
+                    <a href="{% url 'dash:company_table' dist_id %}" class="btn btn-success btn-circle">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </div>
+                <script>
+                    var chart_company = {{chart_company}};
+                    var co_labels = {{co_labels|safe}};
+                </script>
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2">
+                        <canvas id="myPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class='col-md-4'>
+            <!-- 근로자 상태 모니터링-->
+            <div class="card shadow mb-4">
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-success">근로자 근무일지 현황</h6>
+                    <a href="{% url 'dash:status_table' dist_id %}" class="btn btn-success btn-circle">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% for emo in emo_list %}
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1"> {{ emo.name }}
+                            {% if emo.done < emo.workers %}
+                                ( {{emo.done}}명 완료 / 총 {{emo.workers}}명)
+                            {% else %}
+                                (전체 완료.)
+                            {% endif %}
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ emo.percent }}%</div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-success" role="progressbar"
+                                            style="width: {{ emo.percent }}%" aria-valuenow="{{ emo.percent }}" aria-valuemin="0"
+                                            aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class='col-md-5'>
+            <div class='col-xl'>
+                <div class="card shadow mb-4">
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-success"> 단어 빈출</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row no-gutters" >
+                            <div class="col-md-6" >
+                                <div class="border-bottom-success text-success"> 긍정</div>
+                                {% for g,s in good_li %}
+                                <div class="col mr-2">
+                                    <span class="text-xs font-weight-bold text-success mb-1"> {{s}}</span>
+                                    <span class="mb-0 mr-3 text-gray-800">{{g}}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col-md-6" >
+                                <div class="border-bottom-warning text-warning"> 부정</div>
+                                {% for b,s in bad_li %}
+                                <div class="col mr-2">
+                                    <span class="text-xs font-weight-bold text-warning mb-1"> {{s}}</span>
+                                    <span class="mb-0 mr-3 text-gray-800">{{b}}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 실시간 알림 -->
+<div id="toast" class="alertalarm"></div>
+{% else %}
+<h2> {{dist_id}} 관리 권한이 없습니다. </h2>
+{% endif %}
+
+{% else %}
+<h2> 접근 권한이 없습니다. </h2>
+{% endif %}
+
+{% endblock %}
+
+
+{% block script %}
+
+<!-- Page level plugins -->
+<script src="{% static 'dash/vendor/chart.js/Chart.min.js' %}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{% static 'dash/js/chart-area.js' %}"></script>
+<script src="{% static 'dash/js/chart-bar-day.js' %}"></script>
+<script src="{% static 'dash/js/chart-pie.js' %}"></script>
+
+<!-- ajax -->
+<script type="text/javascript">
+$(".alertalarm").ready(function(){
+    timer = setInterval(
+        function(){
+            $.ajax({
+                type: "POST", 
+                url: "{% url 'dash:alertalarm' %}", 
+                data: {'csrfmiddlewaretoken': '{{ csrf_token }}',
+                        'dist_id': '{{dist_id}}'}, 
+                dataType: "json", 
+                success: function(response){
+                    if(response.message){
+                        toast(response.message);
+                    }
+                },
+                error: function(request, status, error){ 
+                    alert("error.")
+                },
+        });
+},30000);})
+
+let removeToast;
+
+function toast(string) {
+    const toast = document.getElementById("toast");
+
+    toast.classList.contains("reveal") ?
+        (clearTimeout(removeToast), removeToast = setTimeout(function () {
+            document.getElementById("toast").classList.remove("reveal")
+        }, 1000)) :
+        removeToast = setTimeout(function () {
+            document.getElementById("toast").classList.remove("reveal")
+        }, 5000)
+    toast.classList.add("reveal"),
+        toast.innerHTML = string
+}
+
+let title = document.querySelector("#overview-title");
+
+document.querySelector("#overview-month").addEventListener('click', function() {
+    $("#twelve").hide();
+    $("#one-month").show();
+    title.innerHTML = "지난 15일 overview";
+});
+document.querySelector("#overview-time").addEventListener('click', function() {
+    $("#twelve").show();
+    $("#one-month").hide();
+    title.innerHTML = "지난 12시간 overview";
+});
+
+
+</script>
+
+{% endblock %}

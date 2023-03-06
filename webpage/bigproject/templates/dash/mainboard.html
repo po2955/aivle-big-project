@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% if 'g' in user.company_id.company_id %}
+{% if user.address == '성남시'%}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    
+    <!-- Page Heading -->
+    <div class="card bg-success text-white shadow h-200 py-2 align-items-center">
+        <h1 class="h4 mb-0 text-white "> 최고 관리자 - Dashboard</h1>
+    </div>
+
+    <br>
+    <div class = 'row'>
+        <div class='col-md-6'>
+            <img src= "{% static '/dash/img/seongnam_0.png' %}" 
+            alt="성남시" usemap="#branchMap" id="branchAllMap" >
+            <map name="branchMap" id="branchMap">
+                <area id="guId1" shape="poly" data-image="#branchAllMap" data-image-over="{% static '/dash/img/seongnam_1.png' %}" coords="297,187,323,184,334,180,355,175,363,169,379,158,394,149,409,143,418,137,426,120,429,110,433,96,445,82,456,67,465,58,475,46,482,31,482,25,472,26,464,31,456,35,449,33,440,28,418,23,392,20,359,19,350,15,331,13,333,17,333,24,338,27,346,35,340,40,328,40,321,37,316,36,316,40,315,46,310,49,303,58,294,62,289,69,289,77,280,72,276,70,266,66,250,66,246,70,245,76,239,80,236,84,231,86,218,86,214,88,209,101,203,107,199,114,197,126,195,130,198,140,184,144,179,153,170,154,162,149,148,148,144,150,144,157,148,161,148,166,145,172,143,175,140,183,140,190,138,192,131,194,124,198,120,198,113,196,104,196,99,196,82,201,74,197,68,193,63,193,57,200,51,203,44,206,46,216,45,222,46,230,53,235,46,241,43,250,46,258,56,260,65,261,68,270,58,278,52,284,51,292,50,299,56,304,71,306,89,310,98,313,115,321,127,324,143,327,154,327,161,335,175,327,180,329,187,326,192,314,197,306,204,302,212,298,218,287,228,292,235,287,240,280,249,283,255,288,262,286,270,285,277,285,283,285,286,283,287,285,290,281,292,278,293,271,297,263,295,255,298,241,295,236,289,230,290,222,290,213,291,210,294,197,295,186" href="{% url 'dash:district' '수정구'  %}" alt="수정구">
+                <area id="guId2" shape="poly" data-image="#branchAllMap" data-image-over="{% static '/dash/img/seongnam_2.png' %}" coords="483,26,488,17,495,24,500,40,500,51,500,56,506,64,509,76,517,83,531,89,531,95,540,110,542,120,542,133,544,145,537,163,538,179,541,194,538,210,540,217,533,227,521,235,514,243,513,251,506,256,493,254,485,259,487,268,485,281,476,292,472,296,447,291,433,283,420,275,397,275,380,261,370,256,350,250,328,248,308,250,298,251,300,238,297,232,293,231,293,210,297,192,320,187,351,179,377,162,418,142,433,103,446,77,466,61,476,47,481,36,483,26" href="{% url 'dash:district' '중원구'  %}" alt="중원구">
+                <area id="guId3" shape="poly" data-image="#branchAllMap" data-image-over="{% static '/dash/img/seongnam_3.png' %}" coords="313,248,337,247,356,250,364,253,375,254,389,269,403,278,416,273,419,273,430,281,448,288,479,296,474,307,470,318,460,334,462,346,471,353,477,362,489,370,481,385,462,395,441,400,437,407,436,429,418,447,403,472,381,481,362,481,353,487,351,496,350,509,345,515,346,523,356,539,359,545,357,551,360,561,348,564,336,570,315,573,309,578,301,584,292,584,281,580,272,580,259,571,249,562,246,548,232,548,221,538,215,533,200,523,195,515,186,514,176,518,164,517,156,502,141,486,122,480,104,478,96,479,87,474,87,465,68,453,57,443,32,439,11,431,6,422,6,403,16,401,20,387,27,373,28,364,37,356,37,337,37,322,35,312,45,307,55,303,86,309,116,322,148,327,164,336,177,330,193,324,203,303,219,293,232,289,245,279,264,292,278,291,288,286,290,281,295,278,299,272,295,258,304,253,313,247" href="{% url 'dash:district' '분당구'  %}" alt="분당구">
+            </map>
+        </div>
+
+        <div class='col-md-6'>
+            <!-- line Chart -->
+            <div class="col-xl">
+                <div class="card shadow mb-4">
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-success"> 전체 구 지난 15일 알람 현황 </h6>
+                    </div>
+                    <div class="card-body">
+                        <script>
+                            var data = {{ data |safe }};
+                            var label = {{ label |safe }};
+                        </script>
+
+                        <div class="chart-area">
+                            <canvas id="mainAreaChart" ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- 구별 긍부정 그래프 -->
+            <div class='col-xl'>
+                <div class="card shadow mb-4">
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-success">전체 구 근무일지 현황</h6>
+                        <a href="#" class="btn btn-success btn-circle">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {% for emo in emo_list %}
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1"> {{ emo.name }} ({{emo.done}}명 완료 / 총 {{emo.workers}}명)</div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{emo.percent}}%</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="progress progress-sm mr-2">
+                                            <div class="progress-bar bg-success" role="progressbar"
+                                                style="width: {{emo.percent}}%" aria-valuenow="{{emo.percent}}" aria-valuemin="0"
+                                                aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% else %}
+<h2> 최고 관리자 권한이 없습니다. </h2>
+{% endif %}
+
+{% else %}
+<h2> 접근 권한이 없습니다. </h2>
+{% endif %}
+
+{% endblock %}
+
+{% block script %}
+<script>
+    // 지도
+    $(document).ready(function(){
+        $("#guId1").on('mouseover focus', function() {$("#guId").val("1");funChangeMapSi('1');});
+        $("#guId2").on('mouseover focus', function() {$("#guId").val("2");funChangeMapSi('2');});
+        $("#guId3").on('mouseover focus', function() {$("#guId").val("3");funChangeMapSi('3');});
+    });
+    
+    function funChangeMapSi(siIdx){
+        $('#branchAllMap').attr("src","{% static '/dash/img/seongnam_' %}"+ siIdx +".png")
+    }
+</script>
+<script src="{% static 'dash/vendor/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'dash/js/chart-area-mainboard.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'common/css/profile.css' %}" type="text/css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Profile</h1>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">내 정보</h6>
+                </div>
+                <div class="card-body">
+                    <table style="color:black; margin-left:10px;">
+                        <tr>
+                            <td class="profile_title">아이디</td>
+                            <td class="profile_content">{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <td class="profile_title">이메일</td>
+                            <td class="profile_content">{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <td class="profile_title">이름 </td>
+                            <td class="profile_content">{{ user.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="profile_title">연락처</td>
+                            <td class="profile_content">{{ user.phone }}</td>
+                        </tr>
+                        <tr>
+                            <td class="profile_title">주소 
+                            </td>
+                            <td class="profile_content">{{ user.address }}</td>
+                        </tr>
+                        <tr>
+                            <td class="profile_title">회사명</td>
+                            <td class="profile_content">{{ user.company_id|default:'선택안함' }}</td>
+                        </tr>
+                    </table>
+                    
+                    <hr>
+                    <div style="text-align: center;">
+                    <!-- <div style="margin-left: 10px;"> -->
+                        <a href="{% url 'common:profile_update' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-edit"></i>&nbsp;내정보수정</a>&nbsp;&middot;&nbsp;
+                        <a href="{% url 'common:password_edit' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-lock"></i>&nbsp;비밀번호변경</a>&nbsp;&middot;&nbsp;
+                        <a href="{% url 'common:profile_delete' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-slash"></i>&nbsp;회원탈퇴</a> <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+{% endblock %}

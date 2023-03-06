@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-success">{{dist_id}} 알람 현황</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" style="overflow-x:hidden">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
+                    <thead>
+                        <tr>
+                            <th>발생일</th>
+                            <th>그룹</th>
+                            <th>위도</th>
+                            <th>경도</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alarm in alarm_list %}
+                        <tr>
+                            <td>{{alarm.date}}</td>
+                            <td>{{alarm.group_id}}</td>
+                            <td>{{alarm.latitude}}</td>
+                            <td>{{alarm.longitude}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'dash/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'dash/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+<script src="{% static 'dash/js/datatables.js' %}"></script>
+{% endblock %}

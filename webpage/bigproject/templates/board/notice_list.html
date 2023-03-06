@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load board_filter %}
+{% block content %}
+<div class="container-fluid">
+<div class="container my-3">
+    <div class="row my-3">
+        {% if 'g' in user.company_id.company_id %}
+        <div class="col-6">
+            <a href="{% url 'board:notice_create' %}" class="btn btn-success">공지 등록</a>
+        </div>
+        {% endif %}
+        <div class="col-6">
+            <div class="input-group">
+                <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr class="text-center table-dark">
+            <th>번호</th>
+            <th style="width:50%">제목</th>
+            <th>글쓴이</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% if notice_list %}
+            {% for notice in notice_list %}
+            <tr class="text-center">
+                <td>
+                    <!-- 페이지 번호 순차적으로 정규화 시작 -->
+                    {{ notice_list.paginator.count|sub:notice_list.start_index|sub:forloop.counter0|add:1 }}
+                    <!-- 페이지 번호 순차적으로 정규화 끝 -->
+                </td>
+                <td class="text-start">
+                    <a href="{% url 'board:detail' notice.id %}">{{ notice.subject }}</a>
+                    <!-- 제목 옆에 댓글 수 출력 시작 -->
+                    {% if notice.reply_set.count > 0 %}
+                        <span class="text-danger small mx-2">{{ notice.reply_set.count }}</span>
+                    {% endif %}
+                    <!-- 제목 옆에 댓글 수 출력 끝 -->
+                </td>
+                <td>{{ notice.user_id.name }}</td>  <!-- 글쓴이 추가 -->
+                <td>{{ notice.create_time}}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4">공지가 없습니다.</td>
+            </tr>
+            {% endif %}
+            </tbody>
+    </table>
+
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+
+        <!-- 이전페이지 -->
+        {% if question_list.has_previous %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ notice_list.previous_page_number }}"
+           href="javascript:void(0)">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+        {% endif %}
+
+        <!-- 페이지리스트 -->
+        {% for page_number in notice_list.paginator.page_range %}
+        <!-- 페이지 표시 제한 (전후 5페이지 까지) -->
+        {% if page_number >= notice_list.number|add:-5 and page_number <= notice_list.number|add:5 %}
+        {% if page_number == notice_list.number %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" data-page="{{ page_number }}" href="javascript:void(0)">{{ page_number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ page_number }}" href="javascript:void(0)">{{ page_number }}</a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+        <!-- 다음페이지 -->
+        {% if notice_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ notice_list.next_page_number }}" href="javascript:void(0)">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+</div>
+</div>
+
+<form id="searchForm" method="get" action="{% url 'index' %}">
+    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+    <input type="hidden" id="page" name="page" value="{{ page }}">
+</form>
+
+{% endblock %}
+
+<!-- page, kw 파라미터를 동시에 요청할 수 있는 자바스크립트 -->
+{% block script %}
+<script type='text/javascript'>
+    const page_elements = document.getElementsByClassName("page-link");
+    Array.from(page_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            document.getElementById('page').value = this.dataset.page;
+            document.getElementById('searchForm').submit();
+        });
+    });
+    const btn_search = document.getElementById("btn_search");
+    btn_search.addEventListener('click', function() {
+        document.getElementById('kw').value = document.getElementById('search_kw').value;
+        document.getElementById('page').value = 1;  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+        document.getElementById('searchForm').submit();
+    });
+</script>
+{% endblock %}

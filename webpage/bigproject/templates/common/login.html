@@ -1,0 +1,108 @@
+{% extends "user_base.html" %}
+{% load static %}
+
+{% block contents %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div
+            style="position: absolute; top: 40%; height: 476.06px; margin-top: -238.03px;">
+            <div class="card" style="width: 30rem;">
+                <div class="card-body">
+                    <div class="text-center">
+                        <img src="{% static 'common/img/logo3.png' %}" style="width:100%; margin:0px;">
+                    </div>
+                    <form method="POST" action="." novalidate="novalidate">
+                        {% csrf_token %}
+                        <div class="mb-4 md-form">
+                            <label name="label_username" for="{{ form.username.id_for_label }}">
+                                <i class="fas fa-user"></i>&nbsp;&nbsp;{{ form.username.label }}</label>
+                            {{ form.username }}
+                            <script type="text/javascript">
+                                if (document.getElementsByName('username')[0].value != '') {
+                                    document
+                                        .getElementsByName('label_username')[0]
+                                        .setAttribute('class', 'active');
+                                }
+                            </script>
+                            {% if form.username.errors %}
+                                <script type="text/javascript">
+                                    document
+                                        .getElementsByName('username')[0]
+                                        .setAttribute('class', 'form-control is-invalid')
+                                </script>
+                                {% for error in form.username.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4 md-form">
+                            <label for="{{ form.password.id_for_label }}">
+                                <i class="fas fa-lock"></i>&nbsp;&nbsp;{{ form.password.label }}</label>
+                            {{ form.password }}
+
+                            {% if form.password.errors %}
+                                <script type="text/javascript">
+                                    document
+                                        .getElementsByName('password')[0]
+                                        .setAttribute('class', 'form-control is-invalid')
+                                </script>
+                                {% for error in form.password.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <!-- {{ login_form }} -->
+                        <label>
+                            <input type="checkbox" name="remember_session"/>
+                            <span style="padding-bottom: 35px;">로그인 상태 유지</span>
+                        </label>
+                        <br>
+                        <!-- <input type="checkbox" name="remember_session" > 로그인 상태 유지<br><br> -->
+
+                        <button
+                            type="submit"
+                            style="opacity: 90%; font-size: 16px; margin-top: -5px;"
+                            class="btn btn-green btn-lg btn-block">로그인</button>
+                    </form>
+
+                    <div style="text-align: center;">
+                        <a style="color:gray; font-size: 14px;" href="{% url 'common:recovery_id' %}">아이디찾기</a>&nbsp;&middot;
+                        <a style="color:gray; font-size: 14px;" href="{% url 'common:recovery_pw' %}">비밀번호찾기</a>&nbsp;&middot;
+                        <a style="color:gray; font-size: 14px;" href="{% url 'common:agreement' %}">회원가입</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    let id = $('#username');
+    let pw = $('#password');
+    let btn = $('#btn');
+
+    $(btn).on('click', function() {
+        if($(id).val() == "") {
+            $(id).next('label').addClass('warning');
+            setTimeout(function() {
+                $('label').removeClass('warning');
+            }, 1500);
+        }
+         else if($(pw).val() == "") {
+            $(pw).next('label').addClass('warning');
+            setTimeout(function() {
+                $('label').removeClass('warning');
+            }, 1500);
+        }
+    });
+</script> 
+
+{% endblock %}

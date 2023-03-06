@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    {% block body %}
+    <h1>신체 인식</h1>
+    <table>
+      <tr>
+        <td width="100%">
+          <img src="{% url 'detect' %}" style="width: 1000px" />
+        </td>
+        <td width="100%"></td>
+      </tr>
+    </table>
+    {% endblock %}
+  </body>
+</html>

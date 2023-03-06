@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "celtic-bazaar-308312",
+  "private_key_id": "c7617526e30e5771ff3009e57b706d51677f3fee",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCmc1iqCvz5dmJT\n+FDgmh7oMVfrdFag6g+hhOIT1qQ9ijRJHTACr1VY++q3AoqBpXgANfClpTV2OEg6\n3db2qFang9l3NzOECFRtTNZYfYnE7U/y6m1rOT3bsUv73KqXxt1ywhL4olJ+1vOO\ncX9eUIUz9QuRGz8iEmBHHqXLpSybDCr8BIvCYPWMI3NlJNhvcKmGjemH1LSVyU/n\nOrb727ZuhgXxwyurWLYNBuAAWEyTF9IlK33RXC+7FNxWUlZGp23Od5SYrpVmaBFK\n4/SW4DI+fUNZZRX6A1PD1OPyjkazfgc83sPaVNfTqYD72rIfIampsZpui+3aDZyv\nQ/mkIMcvAgMBAAECggEAQ52eunC9RB9doSvBuwOQo5UL2JeJa1O5psziw9lRHbir\nNbo4GxcbjgrD1bUgC7tqjHdc+wUqOwxw9wzP+qH2lZT/fai8chmqJj5s4kSY9xjJ\n/e1SJpj5smmK6tTAreg4ZBpHd54E8gaiqM4dRfRir/EO0lLlqhMZ7joacqf1/0Ng\nvBReb8uktEC5D/tO7FDmJZPrVTnQoYs9jtSoALtRXClYf1P7KdfpE07yO8uyA9fP\nM0rLclVmHFCCwxLoSafstaIJPAbpTj3ZgDh5/rvy786eB3tOqigvLbgrcIdy4BoB\nEcRoKQ2kMGTi27wTiYX3jql1BN7OGo5DzKfVP5/GGQKBgQDobx8i68vDWP/wtC+N\nv9VP1px1/sNxA+O/gRpSK6KPjaz7WWFG+o3O2fi168VPuco2mdbnEMzTerPq3OTi\nUX8PC1JTgLk/BbXmXUinSdj7ywcXDBnJcMabyx+1dLVhz77jUbPZ6qL8TSxERWsl\n9IbNQ6kUCKy1V4OpJp80ClfhVwKBgQC3U5u2gST/WguizTm1wNhYMnC1lzOQuYLC\nal13VbBw/QtnPPu0d+nmnZXNKgXu+QIwgOvV4mKwqurL48EH9yLz8Dt0M53+JTNj\nlGecBkKjMfAsAL0PDCFwmSVoVZOqR7NXBRUxL5b1nimzgHeLnNAwqWSJvbrEWw1l\nyUGvfAhp6QKBgQC/F1yJ4UHMgMcqpXjTGPvOf6pyd9lGeOQs9X8mPymOy/ODUaBg\nMm2TujB3oDa/rQdKjH/ZyD4dP6vbU2/5gPbs72nnrNSfs5owolCw+E2j9O8HS7OH\noWgnfX+8Nw9IMvvE987dQcJtmyThnBDTS43oA9Bl4Bvdmu1ri40nw7ksUQKBgDvS\nsrtphTM2pRlpMu3WkkKloxX+0zrk7oCWyQ1KDxuv12rHAbQwdUlmHx4mGm2TIF3H\nlC3lhCL2g0wpdDIvOV61BBG1TldCuHREV1MYz+IFR8R0MT2Zzce6kfRsCJXGdAVv\niSzVxMM964nB4EDU2TMn88DnAu1UcRjIBgFHzk8RAoGAUcVX+0hW5eFM6aHhL0bU\nTv+wno0DFeaUBwKX6kUBelz1WYoA0SzijAnBh+gW6/044BigmLjb1mhvxGofIcal\n/mON72N5wIFe/LVl0EhJDoXnrki3ZwtzoTpcysBToJvXCec/gyCu5fr7bYpDFRAh\ntFdjmYmfuz5mRPgLM3mEw1Q=\n-----END PRIVATE KEY-----\n",
+  "client_email": "stt-1234@celtic-bazaar-308312.iam.gserviceaccount.com",
+  "client_id": "100451990504235910822",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/stt-1234%40celtic-bazaar-308312.iam.gserviceaccount.com"
+}

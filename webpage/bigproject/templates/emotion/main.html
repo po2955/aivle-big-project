@@ -1,0 +1,102 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block header %}
+    <link rel="stylesheet", type="text/css", href="{% static 'emotion/css/main.css' %}?after">
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block bg-image"></div>
+                    <div class="col-lg-6">
+                        <div class="p-5 text-center">
+                            <h1 class="h4 mb-4 text-success">오늘 일과를 들려주세요.</h1>
+                            <hr>
+                            <div>
+                                <div id="recoding" style="display:none">
+                                    녹음중...
+                                </div>
+                                <div id="start-recoding">
+                                    <button class="btn btn-success btn-user btn-block" id="recoding-btn">녹음하기</button>
+                                </div>
+                                <br>
+                                <div id="save-recoding" style="display:none">
+                                    <button class="btn btn-primary btn-user btn-block" id="saving-btn">저장하기</button>
+                                </div>
+                                <div id="re-recoding" style="display:none">
+                                    <button class="btn btn-secondary btn-user btn-block" id="re-btn">처음으로 돌아가기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+    let rec = document.querySelector("#recoding");
+
+    document.querySelector("#recoding-btn").addEventListener('click', function() {
+        $("#start-recoding").hide();
+        $("#recoding").show();
+        $("#re-recoding").hide();
+        $.ajax({
+            type: "POST", 
+            url: "{% url 'emotion:record' %}", 
+            data: {'csrfmiddlewaretoken': '{{ csrf_token }}'}, 
+            dataType: "json", 
+            success: function(response){
+                $("#start-recoding").show();
+                if(response.result){
+                    rec.innerText = response.result;
+                    $("#save-recoding").show();
+                } else{
+                    rec.innerText = "녹음되지 않았습니다.";
+                }
+            },
+            error: function(request, status, error){ 
+                alert("error.")
+            },
+        });
+    });
+
+    document.querySelector("#saving-btn").addEventListener('click', function() {
+        $("#start-recoding").hide();
+        $("#save-recoding").hide();
+        rec.innerText = "저장중...";
+        $.ajax({
+            type: "POST", 
+            url: "{% url 'emotion:predict' %}", 
+            data: {'csrfmiddlewaretoken': '{{ csrf_token }}'}, 
+            dataType: "json", 
+            success: function(response){
+                $("#re-recoding").show();
+                rec.innerText = "오늘 하루도 수고하셨습니다.";
+            },
+            error: function(request, status, error){ 
+                alert("error.")
+            },
+        });
+    });
+
+    document.querySelector("#re-btn").addEventListener('click', function() {
+        $("#re-recoding").hide();
+        $("#start-recoding").show();
+        rec.innerText = "";
+    });
+    
+</script>
+
+{% endblock %}
+
